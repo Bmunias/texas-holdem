@@ -1,21 +1,7 @@
-# Texas Hold'em vs AI
+# Texas Hold'em
 
 A browser-based no-limit Texas Hold'em game in plain JavaScript (no framework, no build step). You play against three bots that decide using **Monte Carlo simulation** and **pot odds**. An on-screen advisor shows you the same numbers the bots use.
 
-## Run it
-
-ES modules need to be served over HTTP (opening `index.html` directly won't work):
-
-```bash
-npx serve .                 # or: python -m http.server 8000
-# or in VS Code: right-click index.html > "Open with Live Server"
-```
-
-Run the tests (needs Node 18+, no npm install required):
-
-```bash
-npm test
-```
 
 ## How it's built
 
@@ -30,7 +16,7 @@ npm test
 | `src/main.js` | Wires it together: the turn loop, button events, bot timing |
 | `tests/` | 23 tests (Node's built-in test runner) |
 
-**Key design choice:** the engine (`game.js`) knows nothing about the browser, and the UI only reads state and calls `game.act(...)`. That separation is what makes the rules testable, and it's a good thing to explain in interviews.
+**Key design choice:** the engine (`game.js`) knows nothing about the browser, and the UI only reads state and calls `game.act(...)`. That separation is what makes the rules testable.
 
 ### The bot's logic
 
@@ -44,12 +30,3 @@ npm test
 - Big blind gets the option, a raise reopens the action, min-raise enforcement
 - **Side pots:** a short all-in can only win what they matched
 - **200 bot-vs-bot hands:** total chips never change and no hand gets stuck
-
-## Deploy to GitHub Pages
-Push to a repo, then Settings > Pages > Deploy from branch > `main` / root. Your link will be `https://<username>.github.io/<repo>/`.
-
-## Ideas for v2
-- Rebuild the UI in React + TypeScript (the engine carries over unchanged)
-- Bot difficulty levels (fewer simulations = weaker bot)
-- Player stats: VPIP, aggression, win rate per session
-- Rising blinds (tournament mode)
